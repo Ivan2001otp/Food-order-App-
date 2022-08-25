@@ -1,0 +1,144 @@
+<!doctype html> 
+<html lang="en" xmlns:th="www.thymeleaf.org" th:replace="base1::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title th:text="${title}"></title>
+</head>
+<body>
+
+	<section class="container-section-usersignup-1">
+		<div class="container">
+			<div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card mt-4">
+                            <div class="card-header text-center" th:style="font-weight-bold">REGISTER</div>
+                            <div class="card-body">
+											
+											 <div th:if="${session.message}"
+            										 th:classappend="${session.message.type}"
+             											class="alert"
+             											role="alert"
+             											>
+             											<p th:text="${session.message.content}"></p>
+             											<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+             								</div>
+											
+											
+                                <form class="form-horizontal " method="post" th:action="@{/do_register}" th:object="${user}">
+
+                                    <div class="form-group">
+                                        <label for="name" class="cols-sm-2 control-label ">First-Name</label>
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+                                                
+                                                <input type="text" 
+                                                class="form-control" 
+                                                th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid' : '' " 
+                                                name="firstName"
+                                                th:value="${user.firstName}" 
+                                                id="first_name" placeholder="Enter your first Name" />
+                                            	
+                                            	<div class="invalid-feedback"
+                                            	th:each="e:${#fields.errors('firstName')}"
+                  								id="validationServer03Feedback"
+               									th:text="${e}"
+                                            	>
+                                            	
+                                            	</div>
+                                            	
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="form-group">
+                                        <label for="name" class="cols-sm-2 control-label mt-3">Last-Name</label>
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                                <input type="text" 
+                                                class="form-control" 
+                                                name="lastName"
+                                                id="last_name"
+                                                th:append="${#fields.hasErrors('lastName')} ? 'is-invalid' : '' " 
+                                                placeholder="Enter your last Name" />
+                                                
+                                               <div class="invalid-feedback"
+                                               	th:each="e : ${#fields.errors('lastName')}"
+                                               	id="validationServer04Feedback"
+                                               	th:text="${e}"
+                                               >
+                                               
+                                               </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="form-group">
+                                        <label for="email" class="cols-sm-2 control-label mt-3"> Email</label>
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                                <input type="text" 
+                                                class="form-control" 
+                                                name="email" 
+                                                id="email" 
+                                                th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : '' "
+                                                placeholder="Enter your Email" />
+                                                
+                                                <div class="invalid-feedback"
+                                                	th:each="e : ${#fields.errors('email')}"
+                                                	id="validationServer05Feedback"
+                                                	th:text="${e}"
+                                                >
+                                                
+                                                
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="form-group">
+                                        <label for="password" class="cols-sm-2 control-label mt-3">Password</label>
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                                <input type="password" 
+                                                class="form-control" 
+                                                name="password" 
+                                                th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : '' "
+                                                id="password" 
+                                                placeholder="Enter your Password" />
+                                                
+                                                <div class="invalid-feedback"
+                                                th:each="e : ${#fields.errors('password')}"
+                                                id="validationServer06Feedback"
+                                                th:text="${e}"
+                                                >
+                                                
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    
+                                    <div class="form-group mt-4">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+                                    </div>
+                                   
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+			</div>
+	</section>
+
+</body>
+</html>

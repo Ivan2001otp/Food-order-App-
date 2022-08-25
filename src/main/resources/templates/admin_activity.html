@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title th:text="${title}"></title>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.rtl.min.css" integrity="sha384-dc2NSrAXbAkjrdm9IYrX10fQq9SDG6Vjz7nQVKdKcJl3pC+k37e7qJR5MVSCS+wR" crossorigin="anonymous">
+	
+	<link rel="stylesheet" th:href="@{/css1/style1.css}" />
+	
+</head>
+<body>
+		<!-- navbar starts -->
+				<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Food Order App</a>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
+        
+         <li class="nav-item">
+          <a class="nav-link " aria-current="page" th:href="@{/admin/dashboard}" href="#">Return DashBoard</a>
+        </li>
+        
+        
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" th:href="@{/logout}" href="">Logout</a>
+        </li>
+        
+       
+       <li class="nav-item">
+       		<a class="nav-link"  href="#" th:text="${nameAdmin}"></a>
+       </li>
+       
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/about}" href="">about us</a>
+        </li>
+      </ul>
+     
+    </div>
+  </div>
+</nav>
+		
+		
+		
+		<!-- navbar ends -->
+		
+		
+		<!-- form starts -->
+		
+				<div class="container">
+					<div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card mt-5">
+                            <div class="card-header text-center">ADD PRODUCT</div>
+                            <div class="card-body">
+															
+											 	<div th:if="${session.message}"
+            										 th:classappend="${session.message.type}"
+             											class="alert"
+             											role="alert"
+             											>
+             											<p th:text="${session.message.content}"></p>
+             											<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+           										</div>		
+															
+															
+                                <form class="form-horizontal" 
+                                enctype="multipart/form-data" 
+                                method="POST" th:action="@{/admin/admin_product_process}" 
+                                th:object="${product}">
+										<!-- product name -->
+                                    <div class="form-group">
+                                        <label for="name" class="cols-sm-2 control-label">Recipe Name</label>
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+                                                
+                                                <input type="text" 
+                                                class="form-control" 
+                                                name="productName"
+                                                th:classappend="${#fields.hasErrors('productName') ? 'is-invalid' : '' }"
+                                                th:value="${product.productName}" 
+                                                id="product_name" 
+                                                placeholder="Recipe Name" />
+                                                
+                                                <div class="invalid-feedback"
+                                                	th:each="e:${#fields.errors('productName')}"
+                                                	th:text="${e}"
+                                                ></div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- product price -->
+                                    <div class="form-group">
+                                        <label for="price" class="cols-sm-2 control-label mt-3">Food-Price</label>
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+                                               
+                                                <input type="number" 
+                                                class="form-control" 
+                                                name="price" 
+                                               
+                                                id="price_product" 
+                                                placeholder="Food price in integers" />
+                                                
+                                                 </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- image -->
+                                    <div class="form-group">
+                                        <label for="image" class="cols-sm-2 control-label mt-3">Add-Image</label>
+                                        <div class="cols-sm-10">
+                                           <div class="custom-file">
+												<input
+												type="file"
+												name="productImage"
+												
+												/>
+											</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- product description -->
+                                    <div class="form-group">
+                                        <label for="description" class="cols-sm-2 control-label mt-3">Product breif-Description</label>
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+                                               	<textarea
+										name= "description"
+								 		id= "description"
+								 		th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}"
+								 		class="form-control"
+								 		th:value="${product.description}"
+								 		rows="7"
+								 			placeholder="Brief description"
+										>
+								</textarea>
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('description')}"
+									th:text="${e}"
+								></div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group mt-3 mr-3">
+                                        <button type="submit" class="btn btn-success ">Add to Inventory</button>
+                                        <button type="reset" class="btn btn-warning">Reset All</button>
+                                    </div>
+                                    
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+			</div>	
+	
+</body>
+</html>
